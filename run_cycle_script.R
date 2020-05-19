@@ -16,19 +16,8 @@ run_cycle <- dget("adaptive_sampling_routine.R")
 res <- run_cycle("HTI", 50, 1)
 
 # Generate list to run function on in parallel
-# n_sim <- 4
-# batch_size=c(rep(50,n_sim*4), rep(10, n_sim*4), rep(5, n_sim*4))
-# iso3=rep(c("PHL", "HTI", "CIV", "MWI"), n_sim*3)
 set.seed(1981)
 seed = as.list(sample(1:100000, 50, replace = FALSE))
-
-# Build input list
-# runs_list <- list()
-# for(i in 1:length(iso3)){
-#   runs_list[[i]] <- c(iso3[i],
-#                               batch_size[i],
-#                       seed[i])
-# }
 
 mwi_res_1 <- mclapply(seed, FUN=function(x){run_cycle("MWI", 1, seed = x)},
                        mc.cores = 7)
